@@ -1,0 +1,164 @@
+[
+  {
+    "Date": "20-Sep-2024",
+    "Present": true,
+    "English": {
+      "Score": 6,
+      "Assignment_Done": true
+    },
+    "Hindi": {
+      "Score": 9,
+      "Assignment_Done": false
+    },
+    "Math": {
+      "Score": 10,
+      "Assignment_Done": true
+    },
+    "Behavior": "Student was Resistant and Shy.",
+    "Engagement_Level": "Disengaged",
+    "Attitude": "Resistant",
+    "Mood": "Sad",
+    "Social_Behavior": "Shy",
+    "Skill_Development": "Progress in Math was notable.",
+    "Seat_Position": {
+      "Row": 1,
+      "Column": 1,
+      "Adjacent_Student": "Udvit"
+    }
+  },
+  {
+    "Date": "19-Sep-2024",
+    "Present": true,
+    "English": {
+      "Score": 10,
+      "Assignment_Done": true
+    },
+    "Hindi": {
+      "Score": 7,
+      "Assignment_Done": false
+    },
+    "Math": {
+      "Score": 7,
+      "Assignment_Done": false
+    },
+    "Behavior": "Student was Resistant and Shy.",
+    "Engagement_Level": "Disengaged",
+    "Attitude": "Resistant",
+    "Mood": "Sad",
+    "Social_Behavior": "Shy",
+    "Skill_Development": "Progress in English was notable.",
+    "Seat_Position": {
+      "Row": 1,
+      "Column": 4,
+      "Adjacent_Student": "Shobit"
+    }
+  },
+  {
+    "Date": "18-Sep-2024",
+    "Present": true,
+    "English": {
+      "Score": 9,
+      "Assignment_Done": true
+    },
+    "Hindi": {
+      "Score": 8,
+      "Assignment_Done": false
+    },
+    "Math": {
+      "Score": 7,
+      "Assignment_Done": false
+    },
+    "Behavior": "Student was Curious and Eager and Cooperative.",
+    "Engagement_Level": "Highly Engaged",
+    "Attitude": "Curious and Eager",
+    "Mood": "Excited",
+    "Social_Behavior": "Cooperative",
+    "Skill_Development": "Progress in English was notable.",
+    "Seat_Position": {
+      "Row": 1,
+      "Column": 1,
+      "Adjacent_Student": "Tanuja"
+    }
+  },
+  {
+    "Date": "17-Sep-2024",
+    "Present": true,
+    "English": {
+      "Score": 9,
+      "Assignment_Done": true
+    },
+    "Hindi": {
+      "Score": 6,
+      "Assignment_Done": true
+    },
+    "Math": {
+      "Score": 9,
+      "Assignment_Done": true
+    },
+    "Behavior": "Student was Curious and Eager and Cooperative.",
+    "Engagement_Level": "Highly Engaged",
+    "Attitude": "Curious and Eager",
+    "Mood": "Excited",
+    "Social_Behavior": "Cooperative",
+    "Skill_Development": "Progress in English was notable.",
+    "Seat_Position": {
+      "Row": 1,
+      "Column": 1,
+      "Adjacent_Student": "Shanaya"
+    }
+  },
+  {
+    "Date": "16-Sep-2024",
+    "Present": true,
+    "English": {
+      "Score": 9,
+      "Assignment_Done": true
+    },
+    "Hindi": {
+      "Score": 5,
+      "Assignment_Done": false
+    },
+    "Math": {
+      "Score": 8,
+      "Assignment_Done": true
+    },
+    "Behavior": "Student was Curious and Eager and Cooperative.",
+    "Engagement_Level": "Highly Engaged",
+    "Attitude": "Curious and Eager",
+    "Mood": "Energetic",
+    "Social_Behavior": "Cooperative",
+    "Skill_Development": "Progress in English was notable.",
+    "Seat_Position": {
+      "Row": 3,
+      "Column": 4,
+      "Adjacent_Student": "Shamyak"
+    }
+  },
+  {
+    "Date": "15-Sep-2024",
+    "Present": true,
+    "English": {
+      "Score": 9,
+      "Assignment_Done": false
+    },
+    "Hindi": {
+      "Score": 10,
+      "Assignment_Done": false
+    },
+    "Math": {
+      "Score": 5,
+      "Assignment_Done": true
+    },
+    "Behavior": "Student was Curious and Eager and Cooperative.",
+    "Engagement_Level": "Highly Engaged",
+    "Attitude": "Curious and Eager",
+    "Mood": "Energetic",
+    "Social_Behavior": "Cooperative",
+    "Skill_Development": "Progress in English was notable.",
+    "Seat_Position": {
+      "Row": 3,
+      "Column": 4,
+      "Adjacent_Student": "Shobit"
+    }
+  }
+]
