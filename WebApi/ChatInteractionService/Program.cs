@@ -30,7 +30,7 @@ using (var scope = app.Services.CreateScope())
     var chatController = new ActivityController(chatService);
 
     // Call the controller method directly
-    chatController.GetTodaysActivity();
+    chatController.GetGroupsForActivity();
     //Console.WriteLine(result.Value);  
 }
 

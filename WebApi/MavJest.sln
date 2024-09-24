@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MavJest", "MavJest.csproj", "{40D6335F-5C7B-4351-8066-53D577065719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatInteractionService", ".\ChatInteractionService\ChatInteractionService.csproj", "{40D6335F-5C7B-4351-8066-53D577065719}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIService", ".\WebAPIService\WebAPIService.csproj", "{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{40D6335F-5C7B-4351-8066-53D577065719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40D6335F-5C7B-4351-8066-53D577065719}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40D6335F-5C7B-4351-8066-53D577065719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
