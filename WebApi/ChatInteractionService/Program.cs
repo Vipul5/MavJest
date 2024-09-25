@@ -1,3 +1,5 @@
+using ChatInteractionService.Database.Context;
+using ChatInteractionService.Database.Entities;
 using MavJest.Controllers;
 using MavJest.Service;
 using Microsoft.SemanticKernel;
@@ -9,6 +11,51 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+////insert the data
+//using (var context = new MavJestContext())
+//{
+//    // Automatically create the database and tables if they do not exist
+//    context.Database.EnsureCreated();
+
+//    // Add Students
+//    var student1 = new Student { Name = "Ayaan Khan", FatherName = "Sameer Khan", DateOfAdmission = DateTime.Now, ClassName = "Nursery" };
+//    var student2 = new Student { Name = "Meera Singh", FatherName = "Raj Singh", DateOfAdmission = DateTime.Now, ClassName = "Prep" };
+
+//    context.Students.Add(student1);
+//    context.Students.Add(student2);
+
+//    // Save changes to database
+//    context.SaveChanges();
+
+//    // Add ActivityHistory
+//    var activity1 = new ActivityHistory { StudentId = student1.Id, Date = DateTime.Now, ActivityName = "Drawing", Description = "Coloring", Performance = "Excellent" };
+//    var activity2 = new ActivityHistory { StudentId = student2.Id, Date = DateTime.Now, ActivityName = "Singing", Description = "Performed in class", Performance = "Good" };
+//    var activity3 = new ActivityHistory { StudentId = student1.Id, Date = DateTime.Now, ActivityName = "Dancing", Description = "on Tauba tauba song", Performance = "Average" };
+
+//    context.ActivityHistories.Add(activity1);
+//    context.ActivityHistories.Add(activity2);
+//    context.ActivityHistories.Add(activity3);
+
+//    // Save changes to database
+//    context.SaveChanges();
+//}
+
+//read the data
+using (var context = new MavJestContext())
+{
+    // Get all students
+    var students = context.Students.ToList();
+
+    // Get a specific student's activities
+    var activities = context.ActivityHistories
+                             .Where(a => a.StudentId == 1)
+                             .ToList();
+
+    foreach (var activity in activities)
+    {
+        Console.WriteLine($"{activity.ActivityName} - {activity.Performance}");
+    }
+}
 
 // Create a web application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -81,3 +128,4 @@ app.Run();
 
 //var result = JsonSerializer.Deserialize<dynamic>(sb.ToString());
 //Console.ReadLine();
+
