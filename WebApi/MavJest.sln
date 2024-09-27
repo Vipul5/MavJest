@@ -3,9 +3,88 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatInteractionService", ".\ChatInteractionService\ChatInteractionService.csproj", "{40D6335F-5C7B-4351-8066-53D577065719}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatInteractionService", "ChatInteractionService\ChatInteractionService.csproj", "{40D6335F-5C7B-4351-8066-53D577065719}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPIService", ".\WebAPIService\WebAPIService.csproj", "{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPIService", "WebAPIService\WebAPIService.csproj", "{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{D735D08E-0B77-4461-A308-A7FBB45E2477}"
+	ProjectSection(SolutionItems) = preProject
+		WebApp\About.css = WebApp\About.css
+		WebApp\About.html = WebApp\About.html
+		WebApp\Admission.css = WebApp\Admission.css
+		WebApp\Admission.html = WebApp\Admission.html
+		WebApp\Blog-Template.css = WebApp\Blog-Template.css
+		WebApp\Contact.css = WebApp\Contact.css
+		WebApp\Contact.html = WebApp\Contact.html
+		WebApp\Home.html = WebApp\Home.html
+		WebApp\index.css = WebApp\index.css
+		WebApp\index.html = WebApp\index.html
+		WebApp\jquery.js = WebApp\jquery.js
+		WebApp\Landing.css = WebApp\Landing.css
+		WebApp\Landing.html = WebApp\Landing.html
+		WebApp\nicepage.css = WebApp\nicepage.css
+		WebApp\nicepage.js = WebApp\nicepage.js
+		WebApp\Post-Template.css = WebApp\Post-Template.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8061B91D-AFB5-4749-B8F3-F064C5BD1186}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blog", "blog", "{70F242D1-9785-40E3-B6C1-256F54B005F2}"
+	ProjectSection(SolutionItems) = preProject
+		WebApp\blog\blog.html = WebApp\blog\blog.html
+		WebApp\blog\post-1.html = WebApp\blog\post-1.html
+		WebApp\blog\post-2.html = WebApp\blog\post-2.html
+		WebApp\blog\post-3.html = WebApp\blog\post-3.html
+		WebApp\blog\post-4.html = WebApp\blog\post-4.html
+		WebApp\blog\post-5.html = WebApp\blog\post-5.html
+		WebApp\blog\post.html = WebApp\blog\post.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{DAA5270D-8C14-4AB7-B95E-24430AEC0A90}"
+	ProjectSection(SolutionItems) = preProject
+		WebApp\images\0fd3416c.jpeg = WebApp\images\0fd3416c.jpeg
+		WebApp\images\1156975.png = WebApp\images\1156975.png
+		WebApp\images\2bd163c1612ade67b3b93ba3f418e3b33598711bafbc877c23b0cfb9e8a35752ada1dd9a1aaa5e7df28696217b4213a1cdba7f542b7a3271cdaee2_1280.jpg = WebApp\images\2bd163c1612ade67b3b93ba3f418e3b33598711bafbc877c23b0cfb9e8a35752ada1dd9a1aaa5e7df28696217b4213a1cdba7f542b7a3271cdaee2_1280.jpg
+		WebApp\images\3242c1259c873b33734ae7e716444a0f1144658b3b8f9a20e84dea3883d12ee8d2ce8ce4e1f6f51135d1892126b9d884baa2aa21468794c4652a0d_1280.jpg = WebApp\images\3242c1259c873b33734ae7e716444a0f1144658b3b8f9a20e84dea3883d12ee8d2ce8ce4e1f6f51135d1892126b9d884baa2aa21468794c4652a0d_1280.jpg
+		WebApp\images\4297861.png = WebApp\images\4297861.png
+		WebApp\images\5187b9b53a40f575e8192e2bffcaba989801c01a0c6115c058cf464cb79c20d8a3684c6f4ffaaea5e2bdcd631cca0d121355fd8f3924abc95cb5f9_1280.jpg = WebApp\images\5187b9b53a40f575e8192e2bffcaba989801c01a0c6115c058cf464cb79c20d8a3684c6f4ffaaea5e2bdcd631cca0d121355fd8f3924abc95cb5f9_1280.jpg
+		WebApp\images\68f64b9d.jpeg = WebApp\images\68f64b9d.jpeg
+		WebApp\images\7e707a9d620d72052e802d0b35f6c1d3f5810fcf90c3290d0202e9bf5c49324427b917448d65874bf373fed5939c6b0f0dd97e3919c85a53acfe23_1280.jpg = WebApp\images\7e707a9d620d72052e802d0b35f6c1d3f5810fcf90c3290d0202e9bf5c49324427b917448d65874bf373fed5939c6b0f0dd97e3919c85a53acfe23_1280.jpg
+		WebApp\images\8337147.png = WebApp\images\8337147.png
+		WebApp\images\89f80abe-6acd-d8dc-a341-3e571206975b.jpg = WebApp\images\89f80abe-6acd-d8dc-a341-3e571206975b.jpg
+		WebApp\images\8ad73f3c.jpeg = WebApp\images\8ad73f3c.jpeg
+		WebApp\images\8c3bce7ded2f48b63ff86831877d44ebc49515c937fabfe874fb96db40de982ceb042ede4a66573b01e5253af4c7306d5f11f1367e79b6c4af4f9f_1280.jpg = WebApp\images\8c3bce7ded2f48b63ff86831877d44ebc49515c937fabfe874fb96db40de982ceb042ede4a66573b01e5253af4c7306d5f11f1367e79b6c4af4f9f_1280.jpg
+		WebApp\images\9776e5130140496229888d2f56fd593c68671439b2bf3d7d2f1d406756f8ca74c42f2c064cf2d7f87e9f0298be1584760fc99b7d74ba94cfe889ea_1280.jpg = WebApp\images\9776e5130140496229888d2f56fd593c68671439b2bf3d7d2f1d406756f8ca74c42f2c064cf2d7f87e9f0298be1584760fc99b7d74ba94cfe889ea_1280.jpg
+		WebApp\images\99ab235b5c026cc970130480abcb7eb280ee7dc26416ddf4bde190f439783993a5694bd549f6ccac3cec0e2d4e3526bf6db7da335789b09ef757fe_1280.jpg = WebApp\images\99ab235b5c026cc970130480abcb7eb280ee7dc26416ddf4bde190f439783993a5694bd549f6ccac3cec0e2d4e3526bf6db7da335789b09ef757fe_1280.jpg
+		WebApp\images\b2efd70bbb2a959f5938d190cfb5b6acd3194e3240b5bed96a38cc62df5f10e86c72520c349a5b9b06a6762b9727e4c2438f65ac6741f7884fc36f_1280.jpg = WebApp\images\b2efd70bbb2a959f5938d190cfb5b6acd3194e3240b5bed96a38cc62df5f10e86c72520c349a5b9b06a6762b9727e4c2438f65ac6741f7884fc36f_1280.jpg
+		WebApp\images\blueschoolbackpackwithessentialsupplies_232148207678.jpg = WebApp\images\blueschoolbackpackwithessentialsupplies_232148207678.jpg
+		WebApp\images\classmates-friends-bag-school-educationcopy.jpg = WebApp\images\classmates-friends-bag-school-educationcopy.jpg
+		WebApp\images\close-up-little-girl-having-fun-birthday-party_1098-1319.jpeg = WebApp\images\close-up-little-girl-having-fun-birthday-party_1098-1319.jpeg
+		WebApp\images\dcf1325cec18407836fd17b8634745e1f09df2419a9ae16a870d6025fbc9f7c5a71c3a6f03f78961bcef389a124a71bb90066b531c723317faa598_1280.jpg = WebApp\images\dcf1325cec18407836fd17b8634745e1f09df2419a9ae16a870d6025fbc9f7c5a71c3a6f03f78961bcef389a124a71bb90066b531c723317faa598_1280.jpg
+		WebApp\images\default-logo.png = WebApp\images\default-logo.png
+		WebApp\images\ea4ded6e3a2cebeea7cd0de54f3a27c76fd289fbd4e91d4d4a25234af5a97a85833958bf30e57985ef49e4d9008f027805680a95f5aa5e0c8f7a2c_1280.jpg = WebApp\images\ea4ded6e3a2cebeea7cd0de54f3a27c76fd289fbd4e91d4d4a25234af5a97a85833958bf30e57985ef49e4d9008f027805680a95f5aa5e0c8f7a2c_1280.jpg
+		WebApp\images\f2b45624-c8f6-3aa0-0ee4-58adda3c89b0.jpg = WebApp\images\f2b45624-c8f6-3aa0-0ee4-58adda3c89b0.jpg
+		WebApp\images\fggg.jpg = WebApp\images\fggg.jpg
+		WebApp\images\happy-kids-elementary-school.jpg = WebApp\images\happy-kids-elementary-school.jpg
+		WebApp\images\image2.png = WebApp\images\image2.png
+		WebApp\images\photo-1494871262121-49703fd34e2b.jpeg = WebApp\images\photo-1494871262121-49703fd34e2b.jpeg
+		WebApp\images\photo-1526878590545-9af30d69f31b.jpeg = WebApp\images\photo-1526878590545-9af30d69f31b.jpeg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "intlTelInput", "intlTelInput", "{5E81CEC3-77D5-42EA-9A10-20588DF437EA}"
+	ProjectSection(SolutionItems) = preProject
+		WebApp\intlTelInput\intlTelInput.css = WebApp\intlTelInput\intlTelInput.css
+		WebApp\intlTelInput\intlTelInput.min.js = WebApp\intlTelInput\intlTelInput.min.js
+		WebApp\intlTelInput\utils.js = WebApp\intlTelInput\utils.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tracker", "Tracker", "{27480B01-E3EA-41EE-8A56-A3D28FE18771}"
+	ProjectSection(SolutionItems) = preProject
+		WebApp\Tracker\Academic-Tracker.css = WebApp\Tracker\Academic-Tracker.css
+		WebApp\Tracker\Academic-Tracker.html = WebApp\Tracker\Academic-Tracker.html
+		WebApp\Tracker\Activity-Tracker.css = WebApp\Tracker\Activity-Tracker.css
+		WebApp\Tracker\Activity-Tracker.html = WebApp\Tracker\Activity-Tracker.html
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +103,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{70F242D1-9785-40E3-B6C1-256F54B005F2} = {D735D08E-0B77-4461-A308-A7FBB45E2477}
+		{DAA5270D-8C14-4AB7-B95E-24430AEC0A90} = {D735D08E-0B77-4461-A308-A7FBB45E2477}
+		{5E81CEC3-77D5-42EA-9A10-20588DF437EA} = {D735D08E-0B77-4461-A308-A7FBB45E2477}
+		{27480B01-E3EA-41EE-8A56-A3D28FE18771} = {D735D08E-0B77-4461-A308-A7FBB45E2477}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B480E5B-3BDB-43CC-9F0F-B3B9F6C1C893}
