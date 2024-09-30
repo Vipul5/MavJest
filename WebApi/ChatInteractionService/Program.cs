@@ -2,6 +2,7 @@ using ChatInteractionService.Database.Context;
 using ChatInteractionService.Database.Entities;
 using MavJest.Controllers;
 using MavJest.Service;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using OllamaSharp;
@@ -43,17 +44,22 @@ using System.Text.Json.Serialization;
 //read the data
 using (var context = new MavJestContext())
 {
+
+    //    // Automatically create the database and tables if they do not exist
+    context.Database.EnsureCreated();
+
     // Get all students
-    var students = context.Students.ToList();
+    var students = context.Student.ToList();
 
     // Get a specific student's activities
-    var activities = context.ActivityHistories
+    var activities = context.ActivityHistory
                              .Where(a => a.StudentId == 1)
+                             .Include(x => x.ActivityDetails)
                              .ToList();
 
     foreach (var activity in activities)
     {
-        Console.WriteLine($"{activity.ActivityName} - {activity.Performance}");
+        Console.WriteLine($"{activity.ActivityDetails.ActivityName} - {activity.ParticipationLevel}");
     }
 }
 
