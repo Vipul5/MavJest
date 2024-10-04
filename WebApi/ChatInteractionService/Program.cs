@@ -87,6 +87,16 @@ using (var scope = app.Services.CreateScope())
     //Console.WriteLine(result.Value);  
 }
 
+ServiceCollection services = new ServiceCollection();
+services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
+});
+
+app.UseCors("AllowAll");
 app.UseRouting();
 app.MapControllers();
 app.Run();

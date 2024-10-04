@@ -7,7 +7,8 @@ using System.Text.Json;
 
 namespace MavJest.Controllers
 {
-    public class ActivityController
+    [Route("/api/activity")]
+    public class ActivityController : ControllerBase
     {
         private readonly IChatService _chatService;
 
@@ -87,7 +88,7 @@ namespace MavJest.Controllers
 
             Console.WriteLine(sb.ToString());
 
-            var result = JsonSerializer.Deserialize<dynamic>(sb.ToString());
+          //  var result = JsonSerializer.Deserialize<dynamic>(sb.ToString());
             Console.ReadLine();
         }
     }
