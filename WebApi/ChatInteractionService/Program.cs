@@ -66,6 +66,15 @@ using (var context = new MavJestContext())
 // Create a web application builder
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
+});
+
+
 // Register the GreetingService with the DI container
 builder.Services.AddScoped<IChatService, ChatService>();
 
@@ -74,6 +83,7 @@ builder.Services.AddControllers();
 
 // Build the app
 var app = builder.Build();
+
 
 using (var scope = app.Services.CreateScope())
 {
@@ -86,15 +96,6 @@ using (var scope = app.Services.CreateScope())
     chatController.GetGroupsForActivity();
     //Console.WriteLine(result.Value);  
 }
-
-ServiceCollection services = new ServiceCollection();
-services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", builder =>
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader());
-});
 
 app.UseCors("AllowAll");
 app.UseRouting();
