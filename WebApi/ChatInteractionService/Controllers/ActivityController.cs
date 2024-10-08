@@ -16,7 +16,7 @@ namespace MavJest.Controllers
             _chatService = chatService;
         }
 
-        [HttpGet(Name = "gettodaysactivity")]
+        [HttpGet("gettodaysactivity")]
         public async void GetTodaysActivity()
         {
             var ollama = await _chatService.connectToOllama();
@@ -41,7 +41,7 @@ namespace MavJest.Controllers
             Console.ReadLine();            
         }
 
-        [HttpGet(Name = "gettodaysseatingplan")]
+        [HttpGet("gettodaysseatingplan")]
         public async void GetTodaysSeatingArrangement()
         {
             var ollama = await _chatService.connectToOllama();
