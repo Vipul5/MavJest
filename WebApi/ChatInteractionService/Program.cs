@@ -1,6 +1,7 @@
 using ChatInteractionService.Database.Context;
 using ChatInteractionService.Database.Entities;
 using MavJest.Controllers;
+using MavJest.Repository;
 using MavJest.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SemanticKernel;
@@ -44,23 +45,8 @@ using System.Text.Json.Serialization;
 //read the data
 using (var context = new MavJestContext())
 {
-
-    //    // Automatically create the database and tables if they do not exist
+    // Automatically create the database and tables if they do not exist
     context.Database.EnsureCreated();
-
-    // Get all students
-    var students = context.Student.ToList();
-
-    // Get a specific student's activities
-    var activities = context.ActivityHistory
-                             .Where(a => a.StudentId == 1)
-                             .Include(x => x.ActivityDetails)
-                             .ToList();
-
-    foreach (var activity in activities)
-    {
-        Console.WriteLine($"{activity.ActivityDetails.ActivityName} - {activity.ParticipationLevel}");
-    }
 }
 
 // Create a web application builder
@@ -77,6 +63,8 @@ builder.Services.AddCors(options =>
 
 // Register the GreetingService with the DI container
 builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 
 // Add support for controllers
 builder.Services.AddControllers();
@@ -85,17 +73,17 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 
-using (var scope = app.Services.CreateScope())
-{
-    var chatService = scope.ServiceProvider.GetRequiredService<IChatService>();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var chatService = scope.ServiceProvider.GetRequiredService<IChatService();
 
-    // Manually create an instance of the controller
-    var chatController = new ActivityController(chatService);
+//    // Manually create an instance of the controller
+//    var chatController = new ActivityController(chatService);
 
-    // Call the controller method directly
-    chatController.GetGroupsForActivity();
-    //Console.WriteLine(result.Value);  
-}
+//    // Call the controller method directly
+//    chatController.GetGroupsForActivity();
+//    //Console.WriteLine(result.Value);  
+//}
 
 app.UseCors("AllowAll");
 app.UseRouting();

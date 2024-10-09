@@ -11,14 +11,19 @@ namespace MavJest.Controllers
     public class ActivityController : ControllerBase
     {
         private readonly IChatService _chatService;
+        private readonly IActivityService _activityService;
 
-        public ActivityController(IChatService chatService) {
+        public ActivityController(IChatService chatService, IActivityService activityService)
+        {
             _chatService = chatService;
+            _activityService = activityService;
         }
 
         [HttpGet("gettodaysactivity")]
-        public async void GetTodaysActivity()
+        public async void GetTodaysActivity(int studentId)
         {
+            var activitySuggestion = _activityService.GetActivitySuggestion(studentId);
+
             var ollama = await _chatService.connectToOllama();
             string fileName = "./activitydata.json";
             var messages = _chatService.convertFiletoJSON(fileName);
@@ -38,7 +43,7 @@ namespace MavJest.Controllers
             Console.WriteLine(sb.ToString());
 
             var result = JsonSerializer.Deserialize<dynamic>(sb.ToString());
-            Console.ReadLine();            
+            Console.ReadLine();
         }
 
         [HttpGet("gettodaysseatingplan")]
@@ -62,7 +67,8 @@ namespace MavJest.Controllers
 
             Console.WriteLine(sb.ToString());
 
-            var result = JsonSerializer.Deserialize<dynamic>(sb.ToString());
+            //TODO: it was giving error. So commented it.
+            //var result = JsonSerializer.Deserialize<dynamic>(sb.ToString());
             Console.ReadLine();
         }
 
@@ -88,7 +94,7 @@ namespace MavJest.Controllers
 
             Console.WriteLine(sb.ToString());
 
-          //  var result = JsonSerializer.Deserialize<dynamic>(sb.ToString());
+            //  var result = JsonSerializer.Deserialize<dynamic>(sb.ToString());
             Console.ReadLine();
         }
     }

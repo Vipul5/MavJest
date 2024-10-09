@@ -1,11 +1,16 @@
 ﻿using OllamaSharp;
 using OllamaSharp.Models.Chat;
 using System.Text.Json;
+using ChatInteractionService.Database.Entities;
+using ChatInteractionService.Database.Context;
+using Microsoft.EntityFrameworkCore;
+using MavJest.Repository;
 
 namespace MavJest.Service
 {
     public class ChatService : IChatService
     {
+
         public IList<Message> convertFiletoJSON(string fileName)
         {
             var data = File.ReadAllText(fileName);
@@ -49,5 +54,6 @@ namespace MavJest.Service
         {
             return null;
         }
+      
     }
 }
