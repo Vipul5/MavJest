@@ -1,4 +1,5 @@
-﻿using OllamaSharp;
+﻿using ChatInteractionService.Database.Entities;
+using OllamaSharp;
 using OllamaSharp.Models.Chat;
 
 namespace MavJest.Service
@@ -12,5 +13,6 @@ namespace MavJest.Service
         public void convertSQLDatatoJSON();
 
         public Task<OllamaApiClient> connectToOllama();
+
     }
 }
