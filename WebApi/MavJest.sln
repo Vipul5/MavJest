@@ -88,6 +88,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tracker", "Tracker", "{2748
 		WebApp\Tracker\Activity-Tracker.html = WebApp\Tracker\Activity-Tracker.html
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{CE00EB40-E965-4BB9-B204-78A3FD501802}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,10 @@ Global
 		{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5F7E3FE-A359-4814-B6A5-287EB8DFC9AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE00EB40-E965-4BB9-B204-78A3FD501802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE00EB40-E965-4BB9-B204-78A3FD501802}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE00EB40-E965-4BB9-B204-78A3FD501802}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE00EB40-E965-4BB9-B204-78A3FD501802}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

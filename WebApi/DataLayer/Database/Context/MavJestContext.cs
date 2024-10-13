@@ -1,4 +1,5 @@
 ﻿using ChatInteractionService.Database.Entities;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChatInteractionService.Database.Context
@@ -85,7 +86,8 @@ namespace ChatInteractionService.Database.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Ensure the 'database' directory exists
-            var directory = Path.Combine(Directory.GetCurrentDirectory(), "Database");
+            var directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), 
+                "MavJestDatabase");
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);
@@ -94,8 +96,32 @@ namespace ChatInteractionService.Database.Context
             // Specify the SQLite database file in the 'database' folder
             var dbPath = Path.Combine(directory, "mavjest.db");
 
+            if(!File.Exists(dbPath))
+            {
+                this.ExecuteSqlFile(dbPath);
+            }
+
             // Specify the SQLite database file
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        }
+
+        private void ExecuteSqlFile(string dbPath)
+        {
+            foreach (string filePath in Directory.EnumerateFiles("../DB/SQL"))
+            {
+                var sqlStatements = File.ReadAllText(filePath); // Read SQL from the file
+
+                using (var connection = new SqliteConnection($"Data Source={dbPath}"))
+                {
+                    connection.Open();
+
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = sqlStatements;
+                        command.ExecuteNonQuery(); // Execute the SQL file
+                    }
+                }
+            }
         }
     }
 

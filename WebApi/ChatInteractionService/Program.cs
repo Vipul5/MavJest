@@ -1,17 +1,8 @@
 using ChatInteractionService.Database.Context;
-using ChatInteractionService.Database.Entities;
-using MavJest.Controllers;
+using ChatInteractionService.Service;
+using DataLayer.Repository;
 using MavJest.Repository;
 using MavJest.Service;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
-using OllamaSharp;
-using OllamaSharp.Models.Chat;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 ////insert the data
 //using (var context = new MavJestContext())
@@ -43,11 +34,6 @@ using System.Text.Json.Serialization;
 //}
 
 //read the data
-using (var context = new MavJestContext())
-{
-    // Automatically create the database and tables if they do not exist
-    context.Database.EnsureCreated();
-}
 
 // Create a web application builder
 var builder = WebApplication.CreateBuilder(args);
@@ -60,14 +46,22 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader());
 });
 
-
 // Register the GreetingService with the DI container
-builder.Services.AddScoped<IChatService, ChatService>();
-builder.Services.AddScoped<IActivityService, ActivityService>();
-builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddSingleton<IAcademicHistoryService, AcademicHistoryService>();
+builder.Services.AddSingleton<IActivityService, ActivityService>();
+builder.Services.AddSingleton<IActivityRepository, ActivityRepository>();
+builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
+builder.Services.AddSingleton<IAcademicHistoryRepository, AcademicHistoryRepository>();
+builder.Services.AddSingleton<IBehaviourService, BehaviourService>();
+builder.Services.AddSingleton<IBehaviourRepository, BehaviourRepository>();
+builder.Services.AddHostedService<BootstrapService>();
+
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 // Add support for controllers
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Build the app
 var app = builder.Build();
@@ -87,6 +81,12 @@ var app = builder.Build();
 
 app.UseCors("AllowAll");
 app.UseRouting();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+}
+
 app.MapControllers();
 app.Run();
 

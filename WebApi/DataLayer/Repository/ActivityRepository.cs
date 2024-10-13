@@ -1,7 +1,4 @@
-﻿using OllamaSharp;
-using OllamaSharp.Models.Chat;
-using System.Text.Json;
-using ChatInteractionService.Database.Entities;
+﻿using ChatInteractionService.Database.Entities;
 using ChatInteractionService.Database.Context;
 using Microsoft.EntityFrameworkCore;
 

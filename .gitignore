@@ -1,0 +1,26 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/WebApi/.vs
+/WebApi/ChatInteractionService/bin/Debug/net8.0
+/WebApi/DataLayer/obj
+/WebApi/DataLayer/bin/Debug/net8.0
+/WebApi/ChatInteractionService/obj/Debug/net8.0/ref
+/WebApi/ChatInteractionService/obj/Debug/net8.0/refint
+/WebApi/ChatInteractionService/obj/Debug/net8.0/staticwebassets
+/WebApi/ChatInteractionService/obj/**
+/WebApi/ChatInteractionService/obj/Debug/net8.0/**
+/WebApi/WebAPIService/bin/Debug/net8.0
+/WebApi/WebAPIService/obj/Debug/net8.0
+/WebApi/WebAPIService/obj
+/WebApi/ChatInteractionService/obj/Debug/net8.0/ChatInteractionService.AssemblyInfo.cs
+/WebApi/ChatInteractionService/obj/Debug/net8.0/ChatInteractionService.AssemblyInfoInputs.cache
+/WebApi/ChatInteractionService/obj/Debug/net8.0/ChatInteractionService.assets.cache
+/WebApi/ChatInteractionService/obj/Debug/net8.0/ChatInteractionService.csproj.AssemblyReference.cache
+/WebApi/ChatInteractionService/obj/Debug/net8.0/ChatInteractionService.GeneratedMSBuildEditorConfig.editorconfig
+/WebApi/ChatInteractionService/obj/ChatInteractionService.csproj.nuget.dgspec.json
+/WebApi/ChatInteractionService/obj/ChatInteractionService.csproj.nuget.g.props
+/WebApi/ChatInteractionService/obj/ChatInteractionService.csproj.nuget.g.targets
+/WebApi/ChatInteractionService/obj/project.assets.json
+/WebApi/ChatInteractionService/obj/project.nuget.cache

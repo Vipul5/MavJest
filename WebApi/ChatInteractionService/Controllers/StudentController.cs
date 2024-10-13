@@ -1,11 +1,24 @@
-﻿namespace MavJest.Controllers
+﻿using ChatInteractionService.Model;
+using ChatInteractionService.Service;
+using Microsoft.AspNetCore.Mvc;
+
+namespace MavJest.Controllers
 {
-    
+
+    [Route("api/[controller]")]
+    [ApiController]
     public class StudentController
     {
-        public void InsertStudentData()
+        private readonly IStudentService studentService;
+        public StudentController(IStudentService studentService)
         {
-            Console.WriteLine("Success");
+            this.studentService = studentService;
+        }
+
+        [HttpGet]
+        public Student Get(int id)
+        {
+            return this.studentService.GetStudent(id);
         }
     }
 }

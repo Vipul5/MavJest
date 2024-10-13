@@ -1,6 +1,4 @@
 ﻿using ChatInteractionService.Database.Entities;
-using OllamaSharp;
-using OllamaSharp.Models.Chat;
 
 namespace MavJest.Repository
 {
