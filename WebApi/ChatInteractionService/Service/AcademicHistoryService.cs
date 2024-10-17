@@ -1,5 +1,4 @@
-﻿using OllamaSharp;
-using OllamaSharp.Models.Chat;
+﻿using Ollama;
 using System.Text.Json;
 using ChatInteractionService.Database.Entities;
 using ChatInteractionService.Database.Context;
@@ -8,6 +7,7 @@ using MavJest.Repository;
 using DataLayer.Repository;
 using ChatInteractionService.Service;
 using ChatInteractionService.Model;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MavJest.Service
 {
@@ -17,6 +17,7 @@ namespace MavJest.Service
         private readonly IAcademicHistoryRepository academicHistoryRepository;
         private OllamaApiClient ollama;
         private IDictionary<int, Chat> academicChats = new Dictionary<int, Chat>();
+        private static object _mutex = new object();
 
         public AcademicHistoryService(IStudentRepository studentRepository, IAcademicHistoryRepository academicHistoryRepository)
         {
@@ -24,37 +25,63 @@ namespace MavJest.Service
             this.academicHistoryRepository = academicHistoryRepository;
         }
 
-        public void BootstrapStudentChat(OllamaApiClient ollama)
+        public async Task BootstrapStudentChat(OllamaApiClient ollama)
         {
             this.ollama = ollama;
             var students = this.studentRepository.GetAllStudents();
+            List<Task> allChats = new List<Task>();
+            int i = 0;
             foreach (var student in students)
             {
-                var chat = this.CreateStudentChat(student);
-                this.academicChats.Add(student.Id, chat);
+                i++;
+                allChats.Add(
+                    Task.Run(async () =>
+                    {
+                        Console.WriteLine("Chat Initiated - Academic - Student - " + student.Id);
+                        var chat = await this.CreateStudentChat(student);
+                        lock (_mutex)
+                        {
+                            this.academicChats.Add(student.Id, chat);
+                        }
+                        Console.WriteLine("Chat Completed - Academic - Student - " + student.Id);
+                    }));
+                if (i > 1)
+                {
+                    break;
+                }
             }
+
+            Task.WaitAll(allChats.ToArray());
+
+            Console.WriteLine("All Chat Completed - Academic - Student");
         }
 
-
-
-        private Chat CreateStudentChat(Student student)
+        private async Task<Chat> CreateStudentChat(Student student)
         {
-            var chat = new Chat(ollama, "You need to analyze following data and provide response for upcoming questions.");
+            var systemMessage = "You need to analyze following data and provide response for upcoming questions.";
             var academicHistory = this.academicHistoryRepository.GetStudentAcademicHistory(student.Id);
-            List<Message> messages = new List<Message>();
+
+            var chat = new Chat(ollama, "phi3:mini", systemMessage);
+            chat.ResponseFormat = ResponseFormat.Json;
+            JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
+            List<AcademicHistoryModel> academicHistoryModels = new List<AcademicHistoryModel>();
             foreach (var academic in academicHistory)
             {
-                JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
-                var data = JsonSerializer.Serialize(new AcademicHistoryModel
+                academicHistoryModels.Add(new AcademicHistoryModel
                 {
                     English = new SubjectModel { ClassScore = academic.English, IsAssignmentDone = academic.EnglishAssignment },
                     Hindi = new SubjectModel { ClassScore = academic.Hindi, IsAssignmentDone = academic.HindiAssignment },
                     Maths = new SubjectModel { ClassScore = academic.Maths, IsAssignmentDone = academic.MathsAssignment },
                     Date = academic.Date
-                }, jsonSerializerOptions);
-                messages.Add(new Message(ChatRole.System, data));
+                });
             }
-            chat.SetMessages(messages);
+            var data = JsonSerializer.Serialize(academicHistoryModels, jsonSerializerOptions);
+
+            Console.WriteLine("Sending Data: " + data);
+
+            await chat.SendAsync(data, MessageRole.Assistant);
+
+            Console.WriteLine("Data Sent");
             return chat;
         }
 

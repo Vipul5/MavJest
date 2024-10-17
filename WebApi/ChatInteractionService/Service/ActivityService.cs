@@ -3,8 +3,7 @@ using ChatInteractionService.Model;
 using ChatInteractionService.Service;
 using DataLayer.Repository;
 using MavJest.Repository;
-using OllamaSharp;
-using OllamaSharp.Models.Chat;
+using Ollama;
 using OpenAI.Chat;
 using System;
 using System.Text;
@@ -26,29 +25,33 @@ namespace MavJest.Service
             _activityRepository = activityRepository;
         }
 
-        public void BootstrapStudentChat(OllamaApiClient ollama)
+        public async Task BootstrapStudentChat(OllamaApiClient ollama)
         {
             this.ollama = ollama;
             var students = this.studentRepository.GetAllStudents();
             foreach (var student in students)
             {
-                var chat = this.CreateStudentChat(student);
+                var chat = await this.CreateStudentChat(student);
                 this.activityChats.Add(student.Id, chat);
             }
             this.classChat = this.CreateClassChat();
         }
 
-        private Chat CreateStudentChat(ChatInteractionService.Database.Entities.Student student)
+        private async Task<Chat> CreateStudentChat(Student student)
         {
-            var chat = new Chat(ollama, "You need to analyze following data and provide response for upcoming questions.");
+            var systemMessage = "You need to analyze following data and provide response for upcoming questions.";
             var activityHistories = this._activityRepository.GetActivityHistoryByStudentId(student.Id);
-            List<Message> messages = new List<Message>();
+
+            var chat = new Chat(ollama, "phi3:mini", systemMessage);
+            chat.ResponseFormat = ResponseFormat.Json;
             foreach (var activity in activityHistories)
             {
-                var data = JsonSerializer.Serialize(activity);
-                messages.Add(new Message(ChatRole.System, data));
+                JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
+
+                var data = JsonSerializer.Serialize(activity, jsonSerializerOptions);
+                await chat.SendAsync(data, MessageRole.Assistant);
             }
-            chat.SetMessages(messages);
+
             return chat;
         }
 

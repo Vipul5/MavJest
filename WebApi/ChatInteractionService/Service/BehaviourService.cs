@@ -1,7 +1,6 @@
 ﻿using ChatInteractionService.Database.Entities;
 using DataLayer.Repository;
-using OllamaSharp.Models.Chat;
-using OllamaSharp;
+using Ollama;
 using System.Text.Json;
 
 namespace ChatInteractionService.Service
@@ -19,30 +18,34 @@ namespace ChatInteractionService.Service
             this.behaviourRepository = behaviourRepository;
         }
 
-        public void BootstrapStudentChat(OllamaApiClient ollama)
+        public async Task BootstrapStudentChat(OllamaApiClient ollama)
         {
             this.ollama = ollama;
             var students = this.studentRepository.GetAllStudents();
             foreach (var student in students)
             {
-                var chat = this.CreateStudentChat(student);
+                var chat = await this.CreateStudentChat(student);
                 this.behaviourChats.Add(student.Id, chat);
             }
         }
 
 
 
-        private Chat CreateStudentChat(Student student)
+        private async Task<Chat> CreateStudentChat(Student student)
         {
-            var chat = new Chat(ollama, "You need to analyze following data and provide response for upcoming questions.");
+            var systemMessage = "You need to analyze following data and provide response for upcoming questions.";
             var academicHistory = this.behaviourRepository.GetStudentBehaviorHistory(student.Id);
-            List<Message> messages = new List<Message>();
+
+            var chat = new Chat(ollama, "phi3:mini", systemMessage);
+            chat.ResponseFormat = ResponseFormat.Json;
             foreach (var academic in academicHistory)
             {
-                var data = JsonSerializer.Serialize(academic);
-                messages.Add(new Message(ChatRole.System, data));
+                JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
+                var data = JsonSerializer.Serialize(academic, jsonSerializerOptions);
+
+                await chat.SendAsync(data, MessageRole.Assistant);
             }
-            chat.SetMessages(messages);
+
             return chat;
         }
 
