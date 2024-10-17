@@ -2,7 +2,7 @@
 
 namespace ChatInteractionService.Model
 {
-    public class StudentActivityDetail
+    public class StudentActivityDetailViewModel
     {
         [PropertyExample("Drawing")]
         public string ActivityTitle { get; set; }

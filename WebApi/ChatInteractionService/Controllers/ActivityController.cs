@@ -21,7 +21,7 @@ namespace MavJest.Controllers
         }
 
         [HttpGet("gettodaysactivity")]
-        public async Task<StudentActivityDetail> GetTodaysActivity(int studentId)
+        public async Task<StudentActivityDetailViewModel> GetTodaysActivity(int studentId)
         {
             return await _activityService.GetActivitySuggestion(studentId);
         }
@@ -53,7 +53,7 @@ namespace MavJest.Controllers
 
 
         [HttpGet(Name = "getgroupsforactivity")]
-        public async Task<StudentGroup> GetGroupsForActivity()
+        public async Task<StudentGroupViewModel> GetGroupsForActivity()
         {
             return await this._activityService.GetGroupForActivity();
         }

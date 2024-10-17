@@ -16,7 +16,7 @@ namespace MavJest.Controllers
         }
 
         [HttpGet]
-        public Student Get(int id)
+        public StudentViewModel Get(int id)
         {
             return this.studentService.GetStudent(id);
         }

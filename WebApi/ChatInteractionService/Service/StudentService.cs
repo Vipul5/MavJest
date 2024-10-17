@@ -12,10 +12,10 @@ namespace ChatInteractionService.Service
             this.studentRepository = studentRepository;
         }
 
-        public Student GetStudent(int id)
+        public StudentViewModel GetStudent(int id)
         {
             var student = this.studentRepository.GetStudent(id);
-            return new Student
+            return new StudentViewModel
             {
                 Id = student.Id,
                 Name = student.Name

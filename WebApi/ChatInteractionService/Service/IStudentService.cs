@@ -4,6 +4,6 @@ namespace ChatInteractionService.Service
 {
     public interface IStudentService
     {
-        Student GetStudent(int id);
+        StudentViewModel GetStudent(int id);
     }
 }

@@ -6,8 +6,8 @@ namespace MavJest.Service
     public interface IActivityService
     {
         void BootstrapStudentChat(OllamaApiClient ollama);
-        Task<StudentActivityDetail> GetActivitySuggestion(int studentId);
-        Task<StudentGroup> GetGroupForActivity();
+        Task<StudentActivityDetailViewModel> GetActivitySuggestion(int studentId);
+        Task<StudentGroupViewModel> GetGroupForActivity();
         Task<string> GetActivityTitle(int studentId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using MavJest.Service;
+﻿using ChatInteractionService.Model;
+using MavJest.Service;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,6 +19,12 @@ namespace ChatInteractionService.Controllers
         public async Task<string> GetAcademicTitle(int id)
         {
             return await this.academicHistoryService.BriefAcademicSkill(id);
+        }
+
+        [HttpGet("profile")]
+        public async Task<StudentAcademicProfileViewModel> GetAcademicProfile(int id)
+        {
+            return await this.academicHistoryService.AcademicProfile(id);
         }
 
         // GET: api/<AcademicController>

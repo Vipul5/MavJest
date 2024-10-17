@@ -59,17 +59,17 @@ namespace MavJest.Service
             return chat;
         }
 
-        public async Task<ChatInteractionService.Model.StudentActivityDetail> GetActivitySuggestion(int studentId)
+        public async Task<ChatInteractionService.Model.StudentActivityDetailViewModel> GetActivitySuggestion(int studentId)
         {
             var message = @"Analyze the provided data for this question. Now you have to analyze and share with me which activity should i plan with each student in class.";
 
-            return await this.JsonResultUserChat<ChatInteractionService.Model.StudentActivityDetail>(this.activityChats[studentId], message);
+            return await this.JsonResultUserChat<ChatInteractionService.Model.StudentActivityDetailViewModel>(this.activityChats[studentId], message);
         }
 
-        public async Task<ChatInteractionService.Model.StudentGroup> GetGroupForActivity()
+        public async Task<ChatInteractionService.Model.StudentGroupViewModel> GetGroupForActivity()
         {
             var message = @"create two groups of students having 2 in each out of the below details given based on their performance on different activities.";
-            return await this.JsonResultUserChat<ChatInteractionService.Model.StudentGroup>(this.classChat, message);
+            return await this.JsonResultUserChat<ChatInteractionService.Model.StudentGroupViewModel>(this.classChat, message);
         }
 
         public async Task<string> GetActivityTitle(int studentId)

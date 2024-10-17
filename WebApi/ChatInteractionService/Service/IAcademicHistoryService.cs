@@ -1,4 +1,5 @@
-﻿using OllamaSharp;
+﻿using ChatInteractionService.Model;
+using OllamaSharp;
 
 namespace MavJest.Service
 {
@@ -6,5 +7,6 @@ namespace MavJest.Service
     {
         void BootstrapStudentChat(OllamaApiClient ollama);
         Task<string> BriefAcademicSkill(int studentId);
+        Task<StudentAcademicProfileViewModel> AcademicProfile(int studentId);
     }
 }

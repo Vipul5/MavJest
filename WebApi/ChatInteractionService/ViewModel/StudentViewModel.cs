@@ -1,6 +1,6 @@
 ﻿namespace ChatInteractionService.Model
 {
-    public class Student
+    public class StudentViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
