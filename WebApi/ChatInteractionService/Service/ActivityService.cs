@@ -42,7 +42,7 @@ namespace MavJest.Service
             var systemMessage = "You need to analyze following data and provide response for upcoming questions.";
             var activityHistories = this._activityRepository.GetActivityHistoryByStudentId(student.Id);
 
-            var chat = new Chat(ollama, "phi3:mini", systemMessage);
+            var chat = new Chat(ollama, "Phi-3-5-mini-instruct-rzbrc", systemMessage);
             chat.ResponseFormat = ResponseFormat.Json;
             foreach (var activity in activityHistories)
             {

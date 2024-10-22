@@ -72,17 +72,18 @@ namespace ChatInteractionService.Service
 
         private async Task<OllamaApiClient> ConnectToOllama()
         {
-            var uri = new Uri("http://localhost:11434");
+            var uri = new Uri("http://13.85.11.216:11434/api");
             var loggingHandler = new LoggingHandler(new HttpClientHandler());
             HttpClient client = new HttpClient(loggingHandler);
             client.Timeout = TimeSpan.FromSeconds(600);
+            client.BaseAddress = uri;
             ollama = new OllamaApiClient(client);
             var models = await ollama.Models.ListModelsAsync();
 
             // Pulling a model and reporting progress
             await foreach (var response in ollama.Models.PullModelAsync("phi3:mini", stream: true))
             {
-                Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
+               Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
             }
 
             // Generating an embedding

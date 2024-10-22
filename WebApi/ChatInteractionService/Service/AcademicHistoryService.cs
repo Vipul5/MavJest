@@ -38,11 +38,6 @@ namespace MavJest.Service
                     Task.Run(async () =>
                     {
                         Console.WriteLine("Chat Initiated - Academic - Student - " + student.Id);
-                        var chat = await this.CreateStudentChat(student);
-                        lock (_mutex)
-                        {
-                            this.academicChats.Add(student.Id, chat);
-                        }
                         Console.WriteLine("Chat Completed - Academic - Student - " + student.Id);
                     }));
                 if (i > 1)
@@ -56,10 +51,10 @@ namespace MavJest.Service
             Console.WriteLine("All Chat Completed - Academic - Student");
         }
 
-        private async Task<Chat> CreateStudentChat(Student student)
+        private async Task<Chat> CreateStudentChat(int studentId)
         {
             var systemMessage = "You need to analyze following data and provide response for upcoming questions.";
-            var academicHistory = this.academicHistoryRepository.GetStudentAcademicHistory(student.Id);
+            var academicHistory = this.academicHistoryRepository.GetStudentAcademicHistory(studentId);
 
             var chat = new Chat(ollama, "phi3:mini", systemMessage);
             chat.ResponseFormat = ResponseFormat.Json;
@@ -79,7 +74,7 @@ namespace MavJest.Service
 
             Console.WriteLine("Sending Data: " + data);
 
-            await chat.SendAsync(data, MessageRole.Assistant);
+            chat.History.Add(new Message { Role=MessageRole.Assistant, Content = data });
 
             Console.WriteLine("Data Sent");
             return chat;
@@ -93,8 +88,9 @@ namespace MavJest.Service
 
         public async Task<StudentAcademicProfileViewModel> AcademicProfile(int studentId)
         {
+            var chat = await this.CreateStudentChat(studentId);
             var message = @"Analyze students records provided. Now suggest me title and brief feedback of each subject, telling me how he is performing, and what are the gaps he need to work upon in that subject. Title needs to be a one liner saying performing good or not, feedback could be in 2 to 3 lines telling his performance trend, classwork and practice work or assignment done. Generate title and detailed feedback for each subject.";
-            return await this.JsonResultUserChat<StudentAcademicProfileViewModel>(this.academicChats[studentId], message);
+            return await this.JsonResultUserChat<StudentAcademicProfileViewModel>(chat, message);
         }
     }
 }

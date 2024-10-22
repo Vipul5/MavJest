@@ -36,7 +36,7 @@ namespace ChatInteractionService.Service
             var systemMessage = "You need to analyze following data and provide response for upcoming questions.";
             var academicHistory = this.behaviourRepository.GetStudentBehaviorHistory(student.Id);
 
-            var chat = new Chat(ollama, "phi3:mini", systemMessage);
+            var chat = new Chat(ollama, "Phi-3-5-mini-instruct-rzbrc", systemMessage);
             chat.ResponseFormat = ResponseFormat.Json;
             foreach (var academic in academicHistory)
             {
