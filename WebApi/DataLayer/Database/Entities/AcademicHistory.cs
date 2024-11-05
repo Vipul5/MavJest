@@ -11,6 +11,7 @@
         public bool? EnglishAssignment { get; set; }
         public bool? HindiAssignment { get; set; }
         public DateTime Date { get; set; }
+        public string Feedback { get; set; }
 
         // Navigation property for relationship
         public Student Student { get; set; }

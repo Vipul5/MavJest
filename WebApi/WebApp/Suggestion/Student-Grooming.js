@@ -18,3 +18,11 @@ $(document).ready(function() {
         console.log("Error fetching data from server");
     });
 });
+
+
+function navigateToFeedback(event){
+    event.preventDefault();
+
+    const id = document.getElementById('select-student').value;
+    window.location.href = 'Student-Feedback.html?id='+id;
+}

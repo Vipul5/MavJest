@@ -1,13 +1,27 @@
-﻿using Ollama;
+﻿using ChatInteractionService.Model;
+using Ollama;
+using System.Runtime.Serialization;
 using System.Text.Json;
 
 namespace ChatInteractionService.Service
 {
-    public class BaseChatService
+    public abstract class BaseChatService
     {
-        protected async Task<T> JsonResultUserChat<T>(Chat chat, string message)
+        protected readonly ChatServerModel chatServerModel;
+        private Chat chat;
+        protected abstract object ContextData { get; set; }
+        protected float Temperature { get; set; }
+
+        public BaseChatService(ChatServerModel chatServerModel)
         {
-            message += "You should respond only with JSON string in the following format, no extra message / text should be provided:\n";
+            this.chatServerModel = chatServerModel;
+            this.Temperature = 0.1f;
+        }
+
+        protected async Task<T> JsonResultUserChat<T>(string message)
+        {
+            this.InitializeChat();
+            message += "You should respond in only JSON with the following format, no extra message / text should be provided:\n";
 
             JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true};
 
@@ -15,26 +29,30 @@ namespace ChatInteractionService.Service
             message += JsonSerializer.Serialize(instance, options);
             message += "\n";
 
-            var response = await chat.SendAsync(message, MessageRole.User);
+            var response = await this.chat.SendAsync(message, MessageRole.User);
 
-            response.Content.Replace("```json", string.Empty);
-            response.Content.Replace("```", string.Empty);
+            if(response.Content.IndexOf("```json") >= 0)
+            {
+                int firstIndex = response.Content.IndexOf("```json") + 7;
+                int lastIndex = response.Content.LastIndexOf("```");
+                response.Content = response.Content.Substring(firstIndex, lastIndex - firstIndex);
+            }
 
             Console.WriteLine(response.Content);
 
-            var result = JsonSerializer.Deserialize<T>(response.Content);
-            return result;
+            return JsonSerializer.Deserialize<T>(response.Content);
         }
 
-        protected async Task<string> StringResultUserChat(Chat chat, string message)
+        protected void InitializeChat()
         {
-            var response = await chat.SendAsync(message, MessageRole.User);
+            var systemMessage = "You need to analyze following data and provide response for upcoming questions.";
+            var requestOptions = new RequestOptions() { Temperature = this.Temperature, TopK = 1, TopP = 0.1f };
+            this.chat = new Chat(chatServerModel.ChatApiClient, "phi3:mini", systemMessage, ResponseFormat.Json, requestOptions);
 
-            response.Content.Replace("```json", string.Empty);
-            response.Content.Replace("```", string.Empty);
+            JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
+            var data = JsonSerializer.Serialize(this.ContextData, jsonSerializerOptions);
 
-            Console.WriteLine(response.Content);
-            return response.Content;
+            chat.History.Add(new Message { Role = MessageRole.User, Content = data });
         }
     }
 }

@@ -1,3 +1,4 @@
+using ChatInteractionService.Model;
 using ChatInteractionService.Service;
 using DataLayer.Repository;
 using MavJest.Repository;
@@ -15,16 +16,21 @@ builder.Services.AddCors(options =>
 });
 
 // Register the GreetingService with the DI container
-builder.Services.AddSingleton<IAcademicHistoryService, AcademicHistoryService>();
-builder.Services.AddSingleton<IActivityService, ActivityService>();
-builder.Services.AddSingleton<IActivityRepository, ActivityRepository>();
-builder.Services.AddSingleton<IStudentRepository, StudentRepository>();
-builder.Services.AddSingleton<IAcademicHistoryRepository, AcademicHistoryRepository>();
-builder.Services.AddSingleton<IBehaviourService, BehaviourService>();
-builder.Services.AddSingleton<IBehaviourRepository, BehaviourRepository>();
+builder.Services.AddSingleton<ChatServerModel>(new ChatServerModel
+{
+    ChatServerUri = "http://localhost:11434/api",
+    AIModel = "phi3:mini"
+});
+builder.Services.AddScoped<IAcademicHistoryService, AcademicHistoryService>();
+//builder.Services.AddSingleton<IActivityService, ActivityService>();
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IAcademicHistoryRepository, AcademicHistoryRepository>();
+//builder.Services.AddSingleton<IBehaviourService, BehaviourService>();
+builder.Services.AddScoped<IBehaviourRepository, BehaviourRepository>();
 builder.Services.AddHostedService<BootstrapService>();
 
-builder.Services.AddScoped<IStudentService, StudentService>();
+//builder.Services.AddScoped<IStudentService, StudentService>();
 
 // Add support for controllers
 builder.Services.AddControllers();
