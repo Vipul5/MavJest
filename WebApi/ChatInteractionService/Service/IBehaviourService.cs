@@ -1,10 +1,10 @@
-﻿using OllamaSharp;
+﻿using Ollama;
 
 namespace ChatInteractionService.Service
 {
     public interface IBehaviourService
     {
-        void BootstrapStudentChat(OllamaApiClient ollama);
+        Task BootstrapStudentChat(OllamaApiClient ollama);
         Task<string> TitleText(int studentId);
     }
 }

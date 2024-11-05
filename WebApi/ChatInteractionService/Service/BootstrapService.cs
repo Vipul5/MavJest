@@ -1,29 +1,20 @@
-﻿using DataLayer.Repository;
-using MavJest.Service;
-using OllamaSharp;
+﻿using ChatInteractionService.Model;
+using Ollama;
 
 namespace ChatInteractionService.Service
 {
     public class BootstrapService: IHostedService
     {
-        private readonly IAcademicHistoryService academicHistoryService;
-        private readonly IActivityService activityService;
-        private readonly IBehaviourService behaviourService;
-        private OllamaApiClient ollama;
+        private readonly ChatServerModel chatServerModel;
 
-        public BootstrapService(IAcademicHistoryService academicHistoryService, 
-            IActivityService activityService,
-            IBehaviourService behaviourService) { 
-            this.academicHistoryService = academicHistoryService;
-            this.activityService = activityService;
-            this.behaviourService = behaviourService;
+        public BootstrapService(
+            ChatServerModel chatServerModel) {
+            this.chatServerModel = chatServerModel;
         }
+
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            await this.ConnectToOllama();
-            academicHistoryService.BootstrapStudentChat(ollama);
-            activityService.BootstrapStudentChat(ollama);
-            behaviourService.BootstrapStudentChat(ollama);
+            await this.ConnectToChatServer();
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
@@ -31,22 +22,28 @@ namespace ChatInteractionService.Service
             return Task.CompletedTask;
         }
 
-        private async Task<OllamaApiClient> ConnectToOllama()
+        private async Task ConnectToChatServer()
         {
-            var uri = new Uri("http://localhost:11434");
-            ollama = new OllamaApiClient(uri);
+            var uri = new Uri(chatServerModel.ChatServerUri);
+            var httpHandler = new HttpClientHandler();
+            HttpClient client = new HttpClient(httpHandler);
+            client.Timeout = TimeSpan.FromSeconds(600);
+            client.BaseAddress = uri;
+            chatServerModel.ChatApiClient = new OllamaApiClient(client);
+            
+            // Pulling a model and reporting progress
+            await foreach (var response in chatServerModel.ChatApiClient.Models
+                .PullModelAsync(chatServerModel.AIModel, stream: true))
+            {
+               Console.WriteLine($"{response.Status}. Progress: {response.Completed}/{response.Total}");
+            }
 
-            // select a model which should be used for further operations
-            ollama.SelectedModel = "phi3:mini";
-
-            var models = await ollama.ListLocalModels();
-
-            await foreach (var status in ollama.PullModel("phi3:mini"))
-                Console.WriteLine($"{status.Percent}% {status.Status}");
+            // Generating an embedding
+            await chatServerModel.ChatApiClient.Embeddings.GenerateEmbeddingAsync(
+                model: chatServerModel.AIModel,
+                prompt: "hello");
 
             Console.WriteLine("Server Connected. Ollama is Running and loaded.");
-
-            return ollama;
         }
 
     }
