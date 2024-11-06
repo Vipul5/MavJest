@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Make the GET request when the page loads
-    $.getJSON("https://localhost:8002/api/student", function(data) {
+    $.getJSON("http://localhost:8001/api/student", function(data) {
         // Find the select element
         var $select = $('#select-student');
         
