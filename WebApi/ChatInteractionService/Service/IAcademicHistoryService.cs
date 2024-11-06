@@ -1,7 +1,7 @@
 ﻿using ChatInteractionService.Model;
 using Ollama;
 
-namespace MavJest.Service
+namespace ChatInteractionService.Service
 {
     public interface IAcademicHistoryService
     {

@@ -1,7 +1,8 @@
 ﻿using ChatInteractionService.Model;
-using MavJest.Service;
+using ChatInteractionService.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.Extensions.Caching.Memory;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,10 +10,11 @@ namespace ChatInteractionService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AcademicController : ControllerBase
+    public class AcademicController : BaseController
     {
         private readonly IAcademicHistoryService academicHistoryService;
-        public AcademicController(IAcademicHistoryService academicHistoryService)
+        public AcademicController(IAcademicHistoryService academicHistoryService, IMemoryCache cache)
+        : base(cache)
         {
             this.academicHistoryService = academicHistoryService;
         }
@@ -21,14 +23,28 @@ namespace ChatInteractionService.Controllers
         [OutputCache(Duration = 60, VaryByQueryKeys = ["id"])]
         public async Task<string> GetAcademicTitle(int id)
         {
-            return await this.academicHistoryService.BriefAcademicSkill(id);
+            string cacheKey = "AcademicController_GetAcademicTitle_" + id;
+            if (!_cache.TryGetValue(cacheKey, out string cachedData))
+            {
+                cachedData = await this.academicHistoryService.BriefAcademicSkill(id);
+
+                _cache.Set(cacheKey, cachedData, _cacheExpiration);
+            }
+
+            return cachedData;
         }
 
         [HttpGet("profile")]
-        [OutputCache(Duration = 60, VaryByQueryKeys = ["id"])]
         public async Task<StudentAcademicProfileViewModel> GetAcademicProfile(int id)
         {
-            return await this.academicHistoryService.AcademicProfile(id);
+            string cacheKey = "AcademicController_GetAcademicProfile_" + id;
+            if (!_cache.TryGetValue(cacheKey, out StudentAcademicProfileViewModel cachedData))
+            {
+                cachedData = await this.academicHistoryService.AcademicProfile(id);
+                _cache.Set(cacheKey, cachedData, _cacheExpiration);
+            }
+
+            return cachedData;
         }
     }
 }
