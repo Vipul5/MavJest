@@ -1,58 +1,79 @@
-﻿//using ChatInteractionService.Database.Entities;
-//using DataLayer.Repository;
-//using Ollama;
-//using System.Text.Json;
+﻿using DataLayer.Repository;
+using ChatInteractionService.Model;
 
-//namespace ChatInteractionService.Service
-//{
-//    public class BehaviourService : BaseChatService, IBehaviourService
-//    {
-//        private readonly IStudentRepository studentRepository;
-//        private readonly IBehaviourRepository behaviourRepository;
-//        private OllamaApiClient ollama;
-//        private IDictionary<int, Chat> behaviourChats = new Dictionary<int, Chat>();
+namespace ChatInteractionService.Service;
 
-//        public BehaviourService(IStudentRepository studentRepository, IBehaviourRepository behaviourRepository)
-//        {
-//            this.studentRepository = studentRepository;
-//            this.behaviourRepository = behaviourRepository;
-//        }
+public class BehaviourService : BaseChatService, IBehaviourService
+{
+    private readonly IStudentRepository studentRepository;
+    private readonly IBehaviourRepository behaviourRepository;
+    protected override object ContextData { get; set; }
 
-//        public async Task BootstrapStudentChat(OllamaApiClient ollama)
-//        {
-//            this.ollama = ollama;
-//            var students = this.studentRepository.GetAllStudents();
-//            foreach (var student in students)
-//            {
-//                var chat = await this.CreateStudentChat(student);
-//                this.behaviourChats.Add(student.Id, chat);
-//            }
-//        }
+    public BehaviourService(IStudentRepository studentRepository,
+        IBehaviourRepository behaviourRepository,
+     ChatServerModel chatServerModel)
+     : base(chatServerModel)
+    {
+        this.studentRepository = studentRepository;
+        this.behaviourRepository = behaviourRepository;
+    }
 
 
+    private List<BehaviourHistoryModel> GetStudentBehaviourData(int studentId)
+    {
+        var behaviourHistories = this.behaviourRepository.GetStudentBehaviorHistory(studentId);
 
-//        private async Task<Chat> CreateStudentChat(Student student)
-//        {
-//            var systemMessage = "You need to analyze following data and provide response for upcoming questions.";
-//            var academicHistory = this.behaviourRepository.GetStudentBehaviorHistory(student.Id);
+        List<BehaviourHistoryModel> behaviourHistoryModels = new List<BehaviourHistoryModel>();
+        foreach (var behaviour in behaviourHistories)
+        {
+            behaviourHistoryModels.Add(new BehaviourHistoryModel
+            {
+                Date = behaviour.Date,
+                Behaviour = behaviour.ClassroomBehaviour,
+                Social_Behaviour = behaviour.SocialBehaviour,
+                Attitude = behaviour.Attitude,
+                Engagement = behaviour.EngagementLevel,
+                Mood = behaviour.Mood,
+            });
+        }
+        return behaviourHistoryModels;
+    }
 
-//            var chat = new Chat(ollama, "Phi-3-5-mini-instruct-rzbrc", systemMessage);
-//            chat.ResponseFormat = ResponseFormat.Json;
-//            foreach (var academic in academicHistory)
-//            {
-//                JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions { WriteIndented = true };
-//                var data = JsonSerializer.Serialize(academic, jsonSerializerOptions);
+    public async Task<string> StudentTitle(int studentId)
+    {
+        var student = this.studentRepository.GetStudent(studentId);
 
-//                await chat.SendAsync(data, MessageRole.Assistant);
-//            }
+        var message = $"{student.Name} study in class {student.Class}. " +
+                $"This is behaviour data, social behavior data, attitude in class, and engagement level" +
+                $" recorded on different dates by his/her teacher." +
+                $"Suggest a title in three to four words for his/her behaviour describing his/her charachter. " +
+                $"Like \"Courageous and Bold\". " +
+                $"Be more generous and positive while suggesting the title, " +
+                $"so that student can be motivated, do not suggest weak areas, " +
+                $"just suggest positive behaviour. Just respond with single title, and do not type any extra word.";
+        this.Temperature = 0.9f;
+        this.TopK = 60;
+        this.TopP = 0.9f;
+        this.ContextData = this.GetStudentBehaviourData(studentId);
+        return (await this.JsonResultUserChat<ChatResponseModel>(message)).ChatResponse;
+    }
 
-//            return chat;
-//        }
+    public async Task<string> BriefBehavior(int studentId)
+    {
+        var student = this.studentRepository.GetStudent(studentId);
 
-//        public async Task<string> TitleText(int studentId)
-//        {
-//            var message = @"Suggest a title in two to three words for my behavior and attitude. Be more generous and positive while suggesting student title, so that student can be motivated. Just respond with title, and do not type any extra word.";
-//            return await this.StringResultUserChat(this.behaviourChats[studentId], message);
-//        }
-//    }
-//}
+        var message = $"{student.Name} study in class {student.Class}. " +
+                $"This is behaviour data, social behavior data, attitude in class, and engagement level" +
+                $" recorded on different dates by his/her teacher." +
+                $"Summarize his/her general behaviour in class in three to four words. " +
+                $"Like \"Extrovert and Orator\". " +
+                $"Be more generous and positive while suggesting the title, " +
+                $"so that student can be motivated, do not suggest weak areas, " +
+                $"just suggest positive behaviour. Just respond with single title, and do not type any extra word.";
+        this.Temperature = 0.9f;
+        this.TopK = 60;
+        this.TopP = 0.9f;
+        this.ContextData = this.GetStudentBehaviourData(studentId);
+        return (await this.JsonResultUserChat<ChatResponseModel>(message)).ChatResponse;
+    }
+}

@@ -1,16 +1,18 @@
-#!/bin/bash
+@echo off
 
-# Check if ollama is installed
-if ! command -v ollama &> /dev/null
-then
-    echo "ollama command could not be found. Please install it first."
-    exit 1
-fi
+REM Check if ollama is installed by trying to run it
+command -v ollama >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Ollama is not installed on this machine.
+    exit /b
+)
 
-# Pull the phi3:mini model
-echo "Pulling phi3:mini model..."
+echo Ollama is installed.
+
+REM Execute "ollama pull phi3:mini" and print the command on console
+echo Executing: ollama pull phi3:mini
 ollama pull phi3:mini
 
-# Run the phi3:mini model
-echo "Running phi3:mini model..."
+REM Execute "ollama run phi3:mini" and print the command on console
+echo Executing: ollama run phi3:mini
 ollama run phi3:mini

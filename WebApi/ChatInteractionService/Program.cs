@@ -2,11 +2,10 @@ using ChatInteractionService.Model;
 using ChatInteractionService.Service;
 using DataLayer.Repository;
 using MavJest.Repository;
-using MavJest.Service;
 
 // Create a web application builder
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddMemoryCache();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -22,15 +21,13 @@ builder.Services.AddSingleton<ChatServerModel>(new ChatServerModel
     AIModel = "phi3:mini"
 });
 builder.Services.AddScoped<IAcademicHistoryService, AcademicHistoryService>();
-//builder.Services.AddSingleton<IActivityService, ActivityService>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IAcademicHistoryRepository, AcademicHistoryRepository>();
-//builder.Services.AddSingleton<IBehaviourService, BehaviourService>();
+builder.Services.AddScoped<IBehaviourService, BehaviourService>();
 builder.Services.AddScoped<IBehaviourRepository, BehaviourRepository>();
 builder.Services.AddHostedService<BootstrapService>();
-
-//builder.Services.AddScoped<IStudentService, StudentService>();
 
 // Add support for controllers
 builder.Services.AddControllers();

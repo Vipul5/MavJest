@@ -4,10 +4,10 @@ namespace ChatInteractionService.Model
 {
     public record StudentAcademicProfileViewModel
     {
-        public SubjectFeedbackViewModel MathFeedback { get; set; } = new SubjectFeedbackViewModel();
+        public SubjectFeedbackViewModel MathSummary { get; set; } = new SubjectFeedbackViewModel();
 
-        public SubjectFeedbackViewModel EnglishFeedback { get; set; } = new SubjectFeedbackViewModel();
+        public SubjectFeedbackViewModel EnglishSummary { get; set; } = new SubjectFeedbackViewModel();
 
-        public SubjectFeedbackViewModel HindiFeedback { get; set; } = new SubjectFeedbackViewModel();
+        public SubjectFeedbackViewModel HindiSummary { get; set; } = new SubjectFeedbackViewModel();
     }
 }

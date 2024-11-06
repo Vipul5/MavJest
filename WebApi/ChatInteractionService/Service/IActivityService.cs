@@ -1,13 +1,10 @@
 ﻿using ChatInteractionService.Model;
 using Ollama;
 
-namespace MavJest.Service
+namespace ChatInteractionService.Service;
+
+public interface IActivityService
 {
-    public interface IActivityService
-    {
-        Task BootstrapStudentChat(OllamaApiClient ollama);
-        Task<StudentActivityDetailViewModel> GetActivitySuggestion(int studentId);
-        Task<StudentGroupViewModel> GetGroupForActivity();
-        Task<string> GetActivityTitle(int studentId);
-    }
+    Task<string> BriefBehavior(int studentId);
+    Task<string> BriefParticipation(int studentId);
 }
