@@ -37,7 +37,6 @@ public class ActivityService : BaseChatService, IActivityService
         }
         return behaviourHistoryModels;
     }
-//            var chat = new Chat(ollama, "You need to analyze following data and provide response for upcoming questions.");
     public async Task<string> BriefBehavior(int studentId)
     {
         var student = this.studentRepository.GetStudent(studentId);

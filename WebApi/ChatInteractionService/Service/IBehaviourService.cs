@@ -1,5 +1,4 @@
-﻿using OllamaSharp;
-
+﻿
 namespace ChatInteractionService.Service
 {
     public interface IBehaviourService

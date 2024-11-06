@@ -19,8 +19,7 @@ namespace ChatInteractionService.Controllers
             this.academicHistoryService = academicHistoryService;
         }
 
-        [HttpGet("title")]
-        [OutputCache(Duration = 60, VaryByQueryKeys = ["id"])]
+        [HttpGet("summary")]
         public async Task<string> GetAcademicTitle(int id)
         {
             string cacheKey = "AcademicController_GetAcademicTitle_" + id;
