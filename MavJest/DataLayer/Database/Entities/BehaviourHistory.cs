@@ -1,4 +1,4 @@
-﻿namespace ChatInteractionService.Database.Entities
+﻿namespace MavJest.Database.Entities
 {
     public class BehaviourHistory
     {

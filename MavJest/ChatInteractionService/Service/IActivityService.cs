@@ -1,7 +1,4 @@
-﻿using ChatInteractionService.Model;
-using Ollama;
-
-namespace ChatInteractionService.Service;
+﻿namespace MavJest.ChatInteractionService.Service;
 
 public interface IActivityService
 {

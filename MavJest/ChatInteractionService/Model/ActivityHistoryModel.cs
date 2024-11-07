@@ -1,13 +1,10 @@
-﻿using ChatInteractionService.Database.Entities;
+﻿namespace MavJest.ChatInteractionService.Model;
 
-namespace ChatInteractionService.Model
+public class ActivityBehaviourModel
 {
-    public class ActivityBehaviourModel
-    {
-        public string Efforts { get; set; }            
-        public string Enthusiasm { get; set; }        
-        public string ParticipationLevel { get; set; } 
-        public string Mood { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
-    }
+    public string Efforts { get; set; }            
+    public string Enthusiasm { get; set; }        
+    public string ParticipationLevel { get; set; } 
+    public string Mood { get; set; }
+    public DateTime Date { get; set; } = DateTime.Now;
 }

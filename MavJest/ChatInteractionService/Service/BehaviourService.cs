@@ -1,7 +1,7 @@
-﻿using DataLayer.Repository;
-using ChatInteractionService.Model;
+﻿using MavJest.Database.Repository;
+using MavJest.ChatInteractionService.Model;
 
-namespace ChatInteractionService.Service;
+namespace MavJest.ChatInteractionService.Service;
 
 public class BehaviourService : BaseChatService, IBehaviourService
 {
@@ -29,7 +29,7 @@ public class BehaviourService : BaseChatService, IBehaviourService
             behaviourHistoryModels.Add(new BehaviourHistoryModel
             {
                 Date = behaviour.Date,
-                Behaviour = behaviour.ClassroomBehaviour,
+                Classroom_Behaviour = behaviour.ClassroomBehaviour,
                 Social_Behaviour = behaviour.SocialBehaviour,
                 Attitude = behaviour.Attitude,
                 Engagement = behaviour.EngagementLevel,
@@ -63,7 +63,7 @@ public class BehaviourService : BaseChatService, IBehaviourService
         var student = this.studentRepository.GetStudent(studentId);
 
         var message = $"{student.Name} study in class {student.Class}. " +
-                $"This is behaviour data, social behavior data, attitude in class, and engagement level" +
+                $"This is classroom behaviour data, social behavior data, attitude in class, and engagement level" +
                 $" recorded on different dates by his/her teacher." +
                 $"Summarize his/her general behaviour in class in three to four words. " +
                 $"Like \"Extrovert and Orator\". " +
@@ -75,5 +75,23 @@ public class BehaviourService : BaseChatService, IBehaviourService
         this.TopP = 0.9f;
         this.ContextData = this.GetStudentBehaviourData(studentId);
         return (await this.JsonResultUserChat<ChatResponseModel>(message)).ChatResponse;
+    }
+
+    public async Task<StudentBehaviourProfileViewModel> StudentBehaviourDetail(int studentId)
+    {
+        var student = this.studentRepository.GetStudent(studentId);
+        this.Temperature = 0.6f;
+        this.TopK = 40;
+        this.TopP = 0.6f;
+        this.ContextData = this.GetStudentBehaviourData(studentId);
+
+        var message = $"{student.Name} study in class {student.Class}. " +
+                $"This is classroom behaviour data, social behavior data, attitude in class, and engagement level" +
+                $" recorded on different dates by his/her teacher." +
+                $"Summarize his/her class behavior, social behavior and engagement in class in three to four lines. " +
+                $"Like \"Very Extrovert and Cooperative, easily make friends and mingle up with Other Children\". Also " +
+                $"suggest how he/she can work on it. Generate the summary and suggestion to work upon classroom behavior, social " +
+                $"behavior and engagement in class.";
+        return await this.JsonResultUserChat<StudentBehaviourProfileViewModel>(message);
     }
 }

@@ -1,53 +1,45 @@
-﻿using ChatInteractionService.Controllers;
-using ChatInteractionService.Model;
-using ChatInteractionService.Service;
+﻿using MavJest.ChatInteractionService.Service;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Caching.Memory;
-using OllamaSharp;
-using OllamaSharp.Models.Chat;
-using System.Text;
-using System.Text.Json;
 
-namespace MavJest.Controllers
+namespace MavJest.ChatInteractionService.Controllers;
+
+[Route("/api/[controller]")]
+public class ActivityController : BaseController
 {
-    [Route("/api/[controller]")]
-    public class ActivityController : BaseController
+    private readonly IActivityService _activityService;
+
+    public ActivityController( IActivityService activityService, IMemoryCache cache)
+    :base(cache)
     {
-        private readonly IActivityService _activityService;
+        _activityService = activityService;
+    }
 
-        public ActivityController( IActivityService activityService, IMemoryCache cache)
-        :base(cache)
+    [HttpGet("summary")]
+    public async Task<string> GetSummary(int id)
+    {
+        string cacheKey = "ActivityController_GetSummary_" + id;
+        if (!_cache.TryGetValue(cacheKey, out string cachedData))
         {
-            _activityService = activityService;
+            cachedData = await this._activityService.BriefBehavior(id);
+
+            _cache.Set(cacheKey, cachedData, _cacheExpiration);
         }
 
-        [HttpGet("summary")]
-        public async Task<string> GetSummary(int id)
+        return cachedData;
+    }
+
+    [HttpGet("participation")]
+    public async Task<string> GetParticipation(int id)
+    {
+        string cacheKey = "ActivityController_GetParticipation_" + id;
+        if (!_cache.TryGetValue(cacheKey, out string cachedData))
         {
-            string cacheKey = "ActivityController_GetSummary_" + id;
-            if (!_cache.TryGetValue(cacheKey, out string cachedData))
-            {
-                cachedData = await this._activityService.BriefBehavior(id);
+            cachedData = await this._activityService.BriefParticipation(id);
 
-                _cache.Set(cacheKey, cachedData, _cacheExpiration);
-            }
-
-            return cachedData;
+            _cache.Set(cacheKey, cachedData, _cacheExpiration);
         }
 
-        [HttpGet("participation")]
-        public async Task<string> GetParticipation(int id)
-        {
-            string cacheKey = "ActivityController_GetParticipation_" + id;
-            if (!_cache.TryGetValue(cacheKey, out string cachedData))
-            {
-                cachedData = await this._activityService.BriefParticipation(id);
-
-                _cache.Set(cacheKey, cachedData, _cacheExpiration);
-            }
-
-            return cachedData;
-        }
+        return cachedData;
     }
 }

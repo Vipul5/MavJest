@@ -1,6 +1,4 @@
-﻿using ChatInteractionService.Helper;
-
-namespace ChatInteractionService.Model
+﻿namespace MavJest.ChatInteractionService.Model
 {
     public record StudentAcademicProfileViewModel
     {

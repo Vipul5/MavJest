@@ -1,9 +1,7 @@
-using ChatInteractionService.Model;
-using ChatInteractionService.Service;
-using DataLayer.Repository;
-using MavJest.Repository;
+using MavJest.ChatInteractionService.Model;
+using MavJest.ChatInteractionService.Service;
+using MavJest.Database.Repository;
 
-// Create a web application builder
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMemoryCache();
 builder.Services.AddCors(options =>
@@ -39,11 +37,9 @@ var app = builder.Build();
 
 app.UseCors("AllowAll");
 app.UseRouting();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
-}
+
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
 
 app.MapControllers();
 app.Run();

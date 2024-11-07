@@ -1,7 +1,7 @@
-﻿using ChatInteractionService.Database.Context;
-using ChatInteractionService.Database.Entities;
+﻿using MavJest.Database.Context;
+using MavJest.Database.Entities;
 
-namespace DataLayer.Repository
+namespace MavJest.Database.Repository
 {
     public class StudentRepository : IStudentRepository
     {

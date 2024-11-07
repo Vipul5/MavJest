@@ -1,6 +1,6 @@
-﻿using ChatInteractionService.Database.Entities;
+﻿using MavJest.Database.Entities;
 
-namespace DataLayer.Repository
+namespace MavJest.Database.Repository
 {
     public interface IBehaviourRepository
     {

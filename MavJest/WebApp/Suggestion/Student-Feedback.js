@@ -56,4 +56,30 @@ $(document).ready(function() {
         console.log(ex);
         console.log("Error fetching data from server");
     });
+
+    $.getJSON("http://localhost:8001/api/student/" + id, function(data) {
+        $("#student_name").html(data.name);
+        $("#student_image").attr("src", "../images/" + data.image);
+    }).fail(function() {
+        console.log("Error fetching data from server");
+    });
+
+    $.getJSON("http://localhost:8001/api/AcademicHistory/" + id, function(data) {
+        setTimeout(function(){
+            $("#academic_overall_score").html(data.overallScore);
+            $("#academic_english_score").html(data.englishScore);
+            $("#academic_hindi_score").html(data.hindiScore);
+            $("#academic_math_score").html(data.mathScore);
+        }, 2000);
+    }).fail(function() {
+        console.log("Error fetching data from server");
+    });
+    
+    $.getJSON("https://localhost:9002/api/Behaviour/profile?id=" + id, function(data) {
+        $("#behavior-profile-class").html(data.classBehavior ?? '');
+        $("#behavior-profile-social").html(data.socialBehavior ?? '');
+        $("#behavior-profile-participant").html(data.engagement ?? '');
+    }).fail(function() {
+        console.log("Error fetching data from server");
+    });
 });

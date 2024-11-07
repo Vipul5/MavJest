@@ -1,30 +1,40 @@
-﻿using DataLayer.Repository;
-using WebAPIService.Models;
+﻿using MavJest.Database.Repository;
+using MavJest.WebAPIService.Models;
 
-namespace WebAPIService.Business
+namespace MavJest.WebAPIService.Business;
+
+public class StudentService : IStudentService
 {
-    public class StudentService : IStudentService
+    private IStudentRepository studentRepository;
+
+    public StudentService(IStudentRepository studentRepository)
     {
-        private IStudentRepository studentRepository;
-
-        public StudentService(IStudentRepository studentRepository)
+        this.studentRepository = studentRepository;
+    }
+    public IEnumerable<StudentModel> GetAll()
+    {
+        var students = this.studentRepository.GetAllStudents();
+        IList<StudentModel> list = new List<StudentModel>();
+        foreach (var student in students)
         {
-            this.studentRepository = studentRepository;
-        }
-        public IEnumerable<StudentModel> GetAll()
-        {
-            var students = this.studentRepository.GetAllStudents();
-            IList<StudentModel> list = new List<StudentModel>();
-            foreach (var student in students)
+            list.Add(new StudentModel()
             {
-                list.Add(new StudentModel()
-                {
-                    Id = student.Id,
-                    Name = student.Name,
-                });
-            }
-
-            return list;
+                Id = student.Id,
+                Name = student.Name,
+            });
         }
+
+        return list;
+    }
+
+    public StudentDetailModel GetDetail(int id)
+    {
+        var student = this.studentRepository.GetStudent(id);
+        return new StudentDetailModel
+        {
+            Id = student.Id,
+            Name = student.Name,
+            Image = student.Image
+        };
     }
 }

@@ -1,11 +1,9 @@
-﻿using ChatInteractionService.Model;
-using Ollama;
+﻿using MavJest.ChatInteractionService.Model;
 
-namespace ChatInteractionService.Service
+namespace MavJest.ChatInteractionService.Service;
+
+public interface IAcademicHistoryService
 {
-    public interface IAcademicHistoryService
-    {
-        Task<string> BriefAcademicSkill(int studentId);
-        Task<StudentAcademicProfileViewModel> AcademicProfile(int studentId);
-    }
+    Task<string> BriefAcademicSkill(int studentId);
+    Task<StudentAcademicProfileViewModel> AcademicProfile(int studentId);
 }

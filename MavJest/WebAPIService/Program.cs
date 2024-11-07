@@ -1,7 +1,6 @@
-using ChatInteractionService.Database.Context;
-using DataLayer.Repository;
-using MavJest.Repository;
-using WebAPIService.Business;
+using MavJest.Database.Context;
+using MavJest.Database.Repository;
+using MavJest.WebAPIService.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +13,13 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IAcademicHistoryRepository, AcademicHistoryRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IAcademicHistoryService, AcademicHistoryService>();
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
