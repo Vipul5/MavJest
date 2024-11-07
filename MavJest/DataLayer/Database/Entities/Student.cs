@@ -1,4 +1,4 @@
-﻿namespace ChatInteractionService.Database.Entities
+﻿namespace MavJest.Database.Entities
 {
     public class Student
     {
@@ -11,5 +11,6 @@
         public DateTime DOB { get; set; }
         public DateTime DateOfAdmission { get; set; }
         public string PhoneNumber { get; set; }
+        public string Image { get; set; }
     }
 }

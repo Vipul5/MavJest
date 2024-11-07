@@ -1,7 +1,6 @@
-﻿namespace ChatInteractionService.Model
+﻿namespace MavJest.ChatInteractionService.Model;
+
+public class ChatResponseModel
 {
-    public class ChatResponseModel
-    {
-        public string ChatResponse { get; set; }
-    }
+    public string ChatResponse { get; set; }
 }

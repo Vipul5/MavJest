@@ -1,4 +1,4 @@
-﻿namespace ChatInteractionService.Model
+﻿namespace MavJest.ChatInteractionService.Model
 {
     public record SubjectFeedbackViewModel
     {

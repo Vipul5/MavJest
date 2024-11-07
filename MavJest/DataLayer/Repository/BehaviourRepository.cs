@@ -1,12 +1,7 @@
-﻿using ChatInteractionService.Database.Context;
-using ChatInteractionService.Database.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MavJest.Database.Context;
+using MavJest.Database.Entities;
 
-namespace DataLayer.Repository
+namespace MavJest.Database.Repository
 {
     public class BehaviourRepository : IBehaviourRepository
     {

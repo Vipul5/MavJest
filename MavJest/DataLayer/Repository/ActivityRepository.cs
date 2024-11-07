@@ -1,8 +1,8 @@
-﻿using ChatInteractionService.Database.Entities;
-using ChatInteractionService.Database.Context;
+﻿using MavJest.Database.Context;
+using MavJest.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace MavJest.Repository
+namespace MavJest.Database.Repository
 {
     public class ActivityRepository : IActivityRepository
     {

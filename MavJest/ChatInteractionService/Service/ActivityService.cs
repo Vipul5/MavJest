@@ -1,8 +1,7 @@
-﻿using DataLayer.Repository;
-using ChatInteractionService.Model;
-using MavJest.Repository;
+﻿using MavJest.Database.Repository;
+using MavJest.ChatInteractionService.Model;
 
-namespace ChatInteractionService.Service;
+namespace MavJest.ChatInteractionService.Service;
 
 public class ActivityService : BaseChatService, IActivityService
 {

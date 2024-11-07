@@ -1,9 +1,10 @@
-﻿using WebAPIService.Models;
+﻿using MavJest.WebAPIService.Models;
 
-namespace WebAPIService.Business
+namespace MavJest.WebAPIService.Business;
+
+public interface IStudentService
 {
-    public interface IStudentService
-    {
-        IEnumerable<StudentModel> GetAll();
-    }
+    IEnumerable<StudentModel> GetAll();
+
+    StudentDetailModel GetDetail(int id);
 }
