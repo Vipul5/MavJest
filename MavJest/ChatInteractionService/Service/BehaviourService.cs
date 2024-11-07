@@ -88,9 +88,10 @@ public class BehaviourService : BaseChatService, IBehaviourService
         var message = $"{student.Name} study in class {student.Class}. " +
                 $"This is classroom behaviour data, social behavior data, attitude in class, and engagement level" +
                 $" recorded on different dates by his/her teacher." +
-                $"Summarize his/her class behavior, social behavior and participation in class in three to four lines. " +
+                $"Summarize his/her class behavior, social behavior and engagement in class in three to four lines. " +
                 $"Like \"Very Extrovert and Cooperative, easily make friends and mingle up with Other Children\". Also " +
-                $"suggest how he/she can work on it.";
+                $"suggest how he/she can work on it. Generate the summary and suggestion to work upon classroom behavior, social " +
+                $"behavior and engagement in class.";
         return await this.JsonResultUserChat<StudentBehaviourProfileViewModel>(message);
     }
 }

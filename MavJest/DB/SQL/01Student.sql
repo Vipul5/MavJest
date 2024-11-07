@@ -11,7 +11,7 @@ CREATE TABLE Student (
     Image TEXT
 );
 
-INSERT INTO Student (Id, Name, SchoolGeneratedId, FatherName, MotherName, Class, DOB, DateOfAdmission, PhoneNumber) 
+INSERT INTO Student (Id, Name, SchoolGeneratedId, FatherName, MotherName, Class, DOB, DateOfAdmission, PhoneNumber, Image) 
 VALUES 
 (1, 'Aryan Mehta', 'SGID001', 'Rahul Mehta', 'Priya Mehta', 'Prep', '2018-03-15', '2024-07-01', '9876543210', 'istockphoto-941782244-612x612.jpg'),
 (2, 'Ria Shah', 'SGID002', 'Arjun Shah', 'Meera Shah', 'Prep', '2018-04-10', '2024-07-05', '9876543211', 'istockphoto-1292020946-612x612.jpg'),
