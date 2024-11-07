@@ -1,5 +1,6 @@
 # MavJest
 MavJest is a Hacktelligence submission, in Nagarro - NAGP.
+GitHub Link: https://github.com/Vipul5/MavJest
 
 # Idea
 The Educational Institute App is designed
